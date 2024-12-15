@@ -24,9 +24,6 @@ namespace LeaderboardCore.UI.ViewControllers
         [Inject]
         private readonly PluginConfig pluginConfig = null!;
 
-        [InjectOptional]
-        private readonly ScoreSaberCustomLeaderboard? scoreSaberCustomLeaderboard = null!;
-
         private FloatingScreen? buttonsFloatingScreen;
         private FloatingScreen? customPanelFloatingScreen;
 
@@ -192,7 +189,6 @@ namespace LeaderboardCore.UI.ViewControllers
             {
                 containerTransform.localPosition = hiddenPosition;
             }
-            scoreSaberCustomLeaderboard?.YeetSS();
         }
 
         private void UnYeetDefault()
@@ -201,7 +197,6 @@ namespace LeaderboardCore.UI.ViewControllers
             {
                 containerTransform.localPosition = containerPosition;
             }
-            scoreSaberCustomLeaderboard?.UnYeetSS();
         }
 
         [UIAction("left-button-click")]
@@ -324,7 +319,6 @@ namespace LeaderboardCore.UI.ViewControllers
         private bool RightButtonActive => currentIndex < orderedCustomLeaderboards.Count;
 
         private bool ShowDefaultLeaderboard => 
-            scoreSaberCustomLeaderboard != null || 
             !(selectedLevelKey?.levelId.Contains(Constants.CustomLevelPrefix) ?? false) || 
             orderedCustomLeaderboards.Count == 0;
     }

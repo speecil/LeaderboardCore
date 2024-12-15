@@ -24,13 +24,8 @@ namespace LeaderboardCore.Installers
             Container.BindInterfacesTo<LeaderboardCoreManager>().AsSingle();
             Container.BindInterfacesAndSelfTo<CustomLeaderboardManager>().AsSingle();
 
-            if (PluginManager.GetPluginFromId("ScoreSaber") != null)
+            if (PluginManager.GetPluginFromId("ScoreSaber") == null)
             {
-                Container.BindInterfacesAndSelfTo<ScoreSaberCustomLeaderboard>().AsSingle();
-            }
-            else
-            {
-                // ScoreSaber already fixes multiplayer for us, so we don't need to do anything
                 Container.BindInterfacesTo<MultiplayerLeaderboardManager>().AsSingle();
             }
 

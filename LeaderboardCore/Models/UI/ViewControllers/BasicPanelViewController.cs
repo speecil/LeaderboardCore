@@ -146,7 +146,7 @@ namespace LeaderboardCore.Models.UI.ViewControllers
         [UIAction("#post-parse")]
         public virtual void Parsed()
         {
-            _background = outer.background as ImageView;
+            _background = outer.Background as ImageView;
 
             // show some actual color
             _background.material = BeatSaberMarkupLanguage.Utilities.ImageResources.NoGlowMat;
@@ -166,7 +166,7 @@ namespace LeaderboardCore.Models.UI.ViewControllers
             if (!_parsedCustomBSML)
             {
                 _parsedCustomBSML = true;
-                BSMLParser.instance.Parse(customBSML, panelCustom, customHost);
+                BSMLParser.Instance.Parse(customBSML, panelCustom, customHost);
             }
         }
     }

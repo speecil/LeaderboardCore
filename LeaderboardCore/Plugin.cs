@@ -14,7 +14,7 @@ namespace LeaderboardCore
     /// <summary>
     /// The LeaderboardCore plugin
     /// </summary>
-    [Plugin(RuntimeOptions.DynamicInit)]
+    [Plugin(RuntimeOptions.DynamicInit), NoEnableDisable]
     public class Plugin
     {
         private const string kHarmonyID = "com.github.rithik-b.LeaderboardCore";
@@ -22,7 +22,6 @@ namespace LeaderboardCore
 
         internal static Plugin Instance { get; set; }
         internal static IPALogger Log { get; private set; }
-        internal PluginMetadata scoreSaber;
 
         /// <summary>
         /// Called when the plugin is first loaded by IPA (either when the game starts or when the plugin is enabled if it starts disabled).
@@ -36,75 +35,5 @@ namespace LeaderboardCore
             Log = logger;
             zenjector.Install<LeaderboardCoreMenuInstaller>(Location.Menu, config.Generated<PluginConfig>());
         }
-
-
-        #region Disableable
-
-        /// <summary>
-        /// Called when the plugin is enabled (including when the game starts if the plugin is enabled).
-        /// </summary>
-        [OnEnable]
-        public void OnEnable()
-        {
-            scoreSaber = PluginManager.GetPluginFromId("ScoreSaber");
-            // Since we only harmony patch on enable/disable, ScoreSaber is harmony patched regardless as long as it exists
-            scoreSaber ??= PluginManager.GetDisabledPluginFromId("ScoreSaber");
-            
-            if (scoreSaber != null)
-            {
-                ApplyHarmonyPatches();
-            }
-        }
-
-        /// <summary>
-        /// Called when the plugin is disabled and on Beat Saber quit. It is important to clean up any Harmony patches, GameObjects, and Monobehaviours here.
-        /// The game should be left in a state as if the plugin was never started.
-        /// Methods marked [OnDisable] must return void or Task.
-        /// </summary>
-        [OnDisable]
-        public void OnDisable()
-        {
-            if (scoreSaber != null)
-            {
-                RemoveHarmonyPatches();
-            }
-        }
-        
-        #endregion
-
-        #region Harmony
-        /// <summary>
-        /// Attempts to apply all the Harmony patches in this assembly.
-        /// </summary>
-        private static void ApplyHarmonyPatches()
-        {
-            try
-            {
-                Log?.Debug("Applying Harmony patches.");
-                harmony.PatchAll(Assembly.GetExecutingAssembly());
-            }
-            catch (Exception ex)
-            {
-                Log?.Error("Error applying Harmony patches: " + ex.Message);
-                Log?.Debug(ex);
-            }
-        }
-
-        /// <summary>
-        /// Attempts to remove all the Harmony patches that used our HarmonyId.
-        /// </summary>
-        private static void RemoveHarmonyPatches()
-        {
-            try
-            {
-                harmony.UnpatchSelf();
-            }
-            catch (Exception ex)
-            {
-                Log?.Error("Error removing Harmony patches: " + ex.Message);
-                Log?.Debug(ex);
-            }
-        }
-        #endregion
     }
 }

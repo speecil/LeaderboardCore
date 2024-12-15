@@ -26,16 +26,6 @@
             <param name="beatmapKey"></param>
             </summary>
         </member>
-        <member name="T:LeaderboardCore.Interfaces.INotifyScoreUpload">
-            <summary>
-            Implement this interface to be notified if ScoreSaber just uploaded a score.
-            </summary>
-        </member>
-        <member name="M:LeaderboardCore.Interfaces.INotifyScoreUpload.OnScoreUploaded">
-            <summary>
-            Called when a score is uploaded.
-            </summary>
-        </member>
         <member name="T:LeaderboardCore.Managers.CustomLeaderboardManager">
             <summary>
             Class for the Leaderboard Manager. Use it to register and unregister yourself. Requires Zenject to receive the instance (installed in menu scene).
@@ -237,28 +227,6 @@
             Called when the plugin is first loaded by IPA (either when the game starts or when the plugin is enabled if it starts disabled).
             [Init] methods that use a Constructor or called before regular methods like InitWithConfig.
             Only use [Init] with one Constructor.
-            </summary>
-        </member>
-        <member name="M:LeaderboardCore.Plugin.OnEnable">
-            <summary>
-            Called when the plugin is enabled (including when the game starts if the plugin is enabled).
-            </summary>
-        </member>
-        <member name="M:LeaderboardCore.Plugin.OnDisable">
-            <summary>
-            Called when the plugin is disabled and on Beat Saber quit. It is important to clean up any Harmony patches, GameObjects, and Monobehaviours here.
-            The game should be left in a state as if the plugin was never started.
-            Methods marked [OnDisable] must return void or Task.
-            </summary>
-        </member>
-        <member name="M:LeaderboardCore.Plugin.ApplyHarmonyPatches">
-            <summary>
-            Attempts to apply all the Harmony patches in this assembly.
-            </summary>
-        </member>
-        <member name="M:LeaderboardCore.Plugin.RemoveHarmonyPatches">
-            <summary>
-            Attempts to remove all the Harmony patches that used our HarmonyId.
             </summary>
         </member>
     </members>
